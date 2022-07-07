@@ -27,6 +27,10 @@ namespace PersonsInfo
             }
             private set
             {
+                if (value.Length < 3)
+                {
+                    throw new ArgumentException(ErrorsList.InvalidFirstName);
+                }
                 firstName = value;
             }
         }
@@ -38,6 +42,10 @@ namespace PersonsInfo
             }
             private set
             {
+                if (value.Length < 3)
+                {
+                    throw new ArgumentException(ErrorsList.InvalidLastName);
+                }
                 lastName = value;
             }
         }
@@ -49,6 +57,10 @@ namespace PersonsInfo
             }
             private set
             {
+                if (value <= 0)
+                {
+                    throw new ArgumentException(ErrorsList.NegativeAge);
+                }
                 age = value;
             }
         }
@@ -60,7 +72,10 @@ namespace PersonsInfo
             }
             private set
             {
-               
+               if (value < 650)
+                {
+                    throw new ArgumentException(ErrorsList.InvalidSalary);
+                }
                 salary = value;
             }
         }
