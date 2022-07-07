@@ -80,21 +80,7 @@ namespace PersonsInfo
             }
         }
 
-        public decimal IncreaseSalary(decimal percentage)
-        {
-            if (this.Age < 30)
-            {
-                this.Salary += this.Salary * percentage/100/2;
-            }
-            else
-            {
-                this.Salary += this.Salary * percentage / 100;
-            }
-            return this.Salary;
-        }
-        public override string ToString()
-        {
-            return $"{this.FirstName} {this.LastName} receives {this.Salary:F2} leva.";
-        }
+    
+        
     }
 }
