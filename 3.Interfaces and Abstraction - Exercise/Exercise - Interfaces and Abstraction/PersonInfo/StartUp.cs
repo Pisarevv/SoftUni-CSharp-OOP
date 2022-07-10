@@ -2,7 +2,7 @@
 
 namespace PersonInfo
 {
-    internal class StartUp
+    public class StartUp
     {
         static void Main(string[] args)
         {
