@@ -1,8 +1,8 @@
 ﻿namespace BirthdatCelebrations
 {
-    using BirthdatCelebrations.Core;
-    using BirthdatCelebrations.IO;
-    using BirthdatCelebrations.IO.Interfaces;
+    using FoodShortage.Core;
+    using FoodShortage.IO;
+    using FoodShortage.IO.Interfaces;
     using System;
 
     public class StartUp
