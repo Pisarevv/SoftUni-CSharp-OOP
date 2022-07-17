@@ -9,7 +9,6 @@ namespace Vehicles.Models.Interfaces
         public double FuelQuantity { get; }
         public double FuelConsumption { get; }
         public double DrivenDistance { get; }
-
         public int TankCapacity { get; }
     }
 }

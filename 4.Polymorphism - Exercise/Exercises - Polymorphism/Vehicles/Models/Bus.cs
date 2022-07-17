@@ -7,7 +7,7 @@ namespace Vehicles.Models
     internal class Bus : Vehicle
     {        
         private const double FuelModifierFull = 1.4;
-        public Bus(double fuelQuantity, double fuelConsumption) : base(fuelQuantity, fuelConsumption + FuelModifierFull)
+        public Bus(double fuelQuantity, double fuelConsumption, int tankCapacity) : base(fuelQuantity, fuelConsumption + FuelModifierFull, tankCapacity)
         {
         }
 

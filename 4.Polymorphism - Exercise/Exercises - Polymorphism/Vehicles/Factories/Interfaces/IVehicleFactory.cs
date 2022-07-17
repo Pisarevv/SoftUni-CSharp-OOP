@@ -7,6 +7,6 @@ namespace Vehicles.Factories.Interfaces
 {
     public interface IVehicleFactory
     {
-        Vehicle CreateVehicle(string vehicleType, double fuelQuantity, double fuelConsumption);
+        Vehicle CreateVehicle(string vehicleType, double fuelQuantity, double fuelConsumption, int tankCapacity);
     }
 }

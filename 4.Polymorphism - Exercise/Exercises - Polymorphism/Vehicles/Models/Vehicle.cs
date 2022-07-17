@@ -13,10 +13,12 @@ namespace Vehicles.Models
         private int tankCapacity;
         private double drivenDistance = 0;
 
-        public Vehicle(double fuelQuantity, double fuelConsumption)
+        public Vehicle(double fuelQuantity, double fuelConsumption, int tankCapacity)
         {
+            this.TankCapacity = tankCapacity;
             this.FuelQuantity = fuelQuantity;
             this.FuelConsumption = fuelConsumption;
+            
         }
         public double FuelQuantity
         {
@@ -89,7 +91,7 @@ namespace Vehicles.Models
         }
         public virtual void Refuel(double liters)
         {
-            if (liters < 0)
+            if (liters <= 0)
             {
                 throw new ArgumentException("Fuel must be a positive number");
             }
