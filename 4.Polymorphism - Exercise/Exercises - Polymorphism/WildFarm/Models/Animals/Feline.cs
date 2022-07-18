@@ -22,6 +22,10 @@ namespace WildFarm.Models.Animals
                 this.breed = value;
             }
         }
-        
+        public override string ToString()
+        {
+            return base.ToString() + $"{this.Breed}, {this.Weight}, {this.LivingRegion}, {this.FoodEaten}]";
+        }
+
     }
 }

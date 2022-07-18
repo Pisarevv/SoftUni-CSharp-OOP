@@ -7,6 +7,7 @@ namespace WildFarm.Models.Animals
 {
     public class Mouse : Mammal
     {
+        private const double GainWeightPerServings = 0.10;
         private readonly List<Type> eadibleFoods = new List<Type>()
         {
             typeof(Vegetable),
@@ -18,7 +19,15 @@ namespace WildFarm.Models.Animals
 
         public override void FeedAnimal(Food food)
         {
-            throw new NotImplementedException();
+            if (eadibleFoods.Contains(food.GetType()))
+            {
+                this.Weight += GainWeightPerServings * food.Quantity;
+                this.FoodEaten = +food.Quantity;
+            }
+            else
+            {
+                throw new ArgumentException($"{this.GetType().Name} does not eat {food.GetType().Name}");
+            }
         }
 
         public override string ProduceSound()

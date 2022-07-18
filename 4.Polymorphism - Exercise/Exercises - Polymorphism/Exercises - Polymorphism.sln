@@ -5,6 +5,8 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicles", "Vehicles\Vehicles.csproj", "{1C1A1949-836C-4A41-A4D5-745ACEA12C89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raiding", "Raiding\Raiding.csproj", "{EDD401C1-88C8-4C26-85C3-595FC00F36FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{1C1A1949-836C-4A41-A4D5-745ACEA12C89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C1A1949-836C-4A41-A4D5-745ACEA12C89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C1A1949-836C-4A41-A4D5-745ACEA12C89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDD401C1-88C8-4C26-85C3-595FC00F36FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDD401C1-88C8-4C26-85C3-595FC00F36FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDD401C1-88C8-4C26-85C3-595FC00F36FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDD401C1-88C8-4C26-85C3-595FC00F36FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
