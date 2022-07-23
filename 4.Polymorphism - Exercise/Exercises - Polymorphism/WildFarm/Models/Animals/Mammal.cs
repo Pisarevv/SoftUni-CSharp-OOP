@@ -7,7 +7,7 @@ namespace WildFarm.Models.Animals
     public abstract class Mammal : Animal
     {
         private string livingRegion;
-        protected Mammal(string name, double weight, int foodEaten, string livingRegion) : base(name, weight, foodEaten)
+        protected Mammal(string name, double weight, string livingRegion) : base(name, weight)
         {
             this.livingRegion = livingRegion;           
         }
@@ -22,9 +22,6 @@ namespace WildFarm.Models.Animals
                 this.livingRegion = value;
             }
         }
-        public override string ToString()
-        {
-            return base.ToString() + $"{this.Weight}, {this.LivingRegion}, {this.FoodEaten}]";
-        }
+        
     }
 }

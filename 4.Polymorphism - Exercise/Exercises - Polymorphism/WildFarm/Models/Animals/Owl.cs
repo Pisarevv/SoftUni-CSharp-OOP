@@ -12,7 +12,7 @@ namespace WildFarm.Models.Animals
         {
             typeof(Meat)
         };
-        public Owl(string name, double weight, int foodEaten, double wingSize) : base(name, weight, foodEaten, wingSize)
+        public Owl(string name, double weight, double wingSize) : base(name, weight,wingSize)
         {
         }
 
@@ -21,11 +21,11 @@ namespace WildFarm.Models.Animals
             if (eadibleFoods.Contains(food.GetType()))
             {
                 this.Weight += GainWeightPerServings * food.Quantity;
-                this.FoodEaten = +food.Quantity;
+                this.FoodEaten += food.Quantity;
             }
             else
             {
-                throw new ArgumentException($"{this.GetType().Name} does not eat {food.GetType().Name}");
+                throw new ArgumentException($"{this.GetType().Name} does not eat {food.GetType().Name}!");
             }
         }
 

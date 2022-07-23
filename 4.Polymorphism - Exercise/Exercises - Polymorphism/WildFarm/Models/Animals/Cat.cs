@@ -13,7 +13,7 @@ namespace WildFarm.Models.Animals
             typeof(Vegetable),
             typeof(Meat)
         };
-        public Cat(string name, double weight, int foodEaten, string livingRegion, string breed) : base(name, weight, foodEaten, livingRegion, breed)
+        public Cat(string name, double weight, string livingRegion, string breed) : base(name, weight,livingRegion, breed)
         {
         }
 
@@ -22,11 +22,11 @@ namespace WildFarm.Models.Animals
             if (eadibleFoods.Contains(food.GetType()))
             {
                 this.Weight += GainWeightPerServings * food.Quantity;
-                this.FoodEaten =+ food.Quantity;
+                this.FoodEaten += food.Quantity;
             }
             else
             {
-                throw new ArgumentException($"{this.GetType().Name} does not eat {food.GetType().Name}");
+                throw new ArgumentException($"{this.GetType().Name} does not eat {food.GetType().Name!}");
             }
         }
 

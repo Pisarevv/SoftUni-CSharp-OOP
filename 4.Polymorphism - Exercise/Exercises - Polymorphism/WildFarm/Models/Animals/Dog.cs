@@ -12,7 +12,7 @@ namespace WildFarm.Models.Animals
         {
             typeof(Meat)
         };
-        public Dog(string name, double weight, int foodEaten, string livingRegion) : base(name, weight, foodEaten, livingRegion)
+        public Dog(string name, double weight, string livingRegion) : base(name, weight, livingRegion)
         {
 
         }
@@ -22,14 +22,18 @@ namespace WildFarm.Models.Animals
             if (eadibleFoods.Contains(food.GetType()))
             {
                 this.Weight += GainWeightPerServings * food.Quantity;
-                this.FoodEaten = +food.Quantity;
+                this.FoodEaten += food.Quantity;
             }
             else
             {
-                throw new ArgumentException($"{this.GetType().Name} does not eat {food.GetType().Name}");
+                throw new ArgumentException($"{this.GetType().Name} does not eat {food.GetType().Name}!");
             }
         }
 
+        public override string ToString()
+        {
+            return base.ToString() + $"{this.Weight}, {this.LivingRegion}, {this.FoodEaten}]";
+        }
         public override string ProduceSound()
         {
             return "Woof!";

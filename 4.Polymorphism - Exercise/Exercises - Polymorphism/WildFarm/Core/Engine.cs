@@ -46,7 +46,7 @@ namespace WildFarm.Core
                     {
                         string livingRegion = cmdArgs[3];
                         string breed = cmdArgs[4];
-                        animal = new Cat(name, weight, foodQuantity, livingRegion,breed);
+                        animal = new Cat(name, weight, livingRegion,breed);
                         writer.WriteLine(animal.ProduceSound());
                         animals.Add(animal);
                         animal.FeedAnimal(food);
@@ -58,7 +58,7 @@ namespace WildFarm.Core
                     {
                         string livingRegion = cmdArgs[3];
                         string breed = cmdArgs[4];
-                        animal = new Tiger(name, weight, foodQuantity, livingRegion, breed);
+                        animal = new Tiger(name, weight, livingRegion, breed);
                         writer.WriteLine(animal.ProduceSound());
                         animals.Add(animal);
                         animal.FeedAnimal(food);
@@ -67,8 +67,7 @@ namespace WildFarm.Core
                     else if (type == "Owl")
                     {
                         double wingsSize = double.Parse(cmdArgs[3]);
-                        string breed = cmdArgs[4];
-                        animal = new Owl(name, weight, foodQuantity, wingsSize);
+                        animal = new Owl(name, weight, wingsSize);
                         writer.WriteLine(animal.ProduceSound());
                         animals.Add(animal);
                         animal.FeedAnimal(food);
@@ -77,8 +76,7 @@ namespace WildFarm.Core
                     else if (type == "Hen")
                     {
                         double wingsSize = double.Parse(cmdArgs[3]);
-                        string breed = cmdArgs[4];
-                        animal = new Hen(name, weight, foodQuantity, wingsSize);
+                        animal = new Hen(name, weight, wingsSize);
                         writer.WriteLine(animal.ProduceSound());
                         animals.Add(animal);
                         animal.FeedAnimal(food);
@@ -87,7 +85,7 @@ namespace WildFarm.Core
                     else if (type == "Dog")
                     {
                         string livingRegion = cmdArgs[3];                        
-                        animal = new Dog(name, weight, foodQuantity, livingRegion);
+                        animal = new Dog(name, weight, livingRegion);
                         writer.WriteLine(animal.ProduceSound());
                         animals.Add(animal);
                         animal.FeedAnimal(food);
@@ -96,7 +94,7 @@ namespace WildFarm.Core
                     else if (type == "Mouse")
                     {
                         string livingRegion = cmdArgs[3];
-                        animal = new Mouse(name, weight, foodQuantity, livingRegion);
+                        animal = new Mouse(name, weight,livingRegion);
                         writer.WriteLine(animal.ProduceSound());
                         animals.Add(animal);
                         animal.FeedAnimal(food);

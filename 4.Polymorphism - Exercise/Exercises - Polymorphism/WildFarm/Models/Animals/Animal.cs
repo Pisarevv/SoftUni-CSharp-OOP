@@ -10,14 +10,13 @@ namespace WildFarm.Models.Animals
     {
         private string name;
         private double weight;
-        private int foodEaten;
+        private int foodEaten = 0;
 
 
-        public Animal(string name, double weight, int foodEaten)
+        public Animal(string name, double weight)
         {
             this.Name = name;
             this.Weight = weight;
-            this.FoodEaten = foodEaten;
         }
 
         public string Name
