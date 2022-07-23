@@ -51,7 +51,7 @@ namespace WildFarm.Core
                         animals.Add(animal);
                         animal.FeedAnimal(food);
                         
-                        
+
 
                     }
                     else if(type == "Tiger")
