@@ -42,8 +42,10 @@
 
         public void RemoveUnit(string unitType)
         {
-            //TODO: implement for Problem 4
-            throw new NotImplementedException();
+            if (this.amountOfUnits.ContainsKey(unitType))
+            {
+
+            }
         }
     }
 }

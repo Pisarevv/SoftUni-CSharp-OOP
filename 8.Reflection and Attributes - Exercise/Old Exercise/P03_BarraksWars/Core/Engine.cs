@@ -7,7 +7,7 @@
     {
         private IRepository repository;
         private IUnitFactory unitFactory;
-
+        private ICommandInterpreter commandInterpreter;
         public Engine(IRepository repository, IUnitFactory unitFactory)
         {
             this.repository = repository;
