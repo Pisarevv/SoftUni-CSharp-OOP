@@ -5,6 +5,7 @@ namespace Skeleton.Tests
     [TestFixture]
     public class DummyTests
     {
+       
         [Test]
         public void Test_DummyLosingHealthAfterAttack()
         {
@@ -36,7 +37,9 @@ namespace Skeleton.Tests
             Assert.Multiple(() =>
             {
                 dummy.TakeAttack(3);
-                Assert.That(() => dummy.GiveExperience().Equals(100));
+                int expectedExperince = 100;
+                int actualExperince = dummy.GiveExperience();
+                Assert.That(() => actualExperince.Equals(expectedExperince));
             });
         }
         [Test]

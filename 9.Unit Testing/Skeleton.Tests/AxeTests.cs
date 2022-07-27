@@ -15,9 +15,10 @@ namespace Skeleton.Tests
             //Act   
             axe.Attack(dummy);
             axe.Attack(dummy);
-
+            int expectedDurability = 13;
+            int acutualDurability = axe.DurabilityPoints;
             //Assert    
-            Assert.That(axe.DurabilityPoints, Is.EqualTo(13), "Axe durability points are decreased");
+            Assert.That(axe.DurabilityPoints, Is.EqualTo(expectedDurability), "Axe durability points are decreased");
 
         }
         [Test]
