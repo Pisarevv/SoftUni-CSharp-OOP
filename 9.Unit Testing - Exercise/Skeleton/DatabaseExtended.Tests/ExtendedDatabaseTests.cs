@@ -9,13 +9,9 @@ namespace DatabaseExtended.Tests
     [TestFixture]
     public class ExtendedDatabaseTests
     {
-        [SetUp]
-        public void CreateObjects()
-        {
-            
-        }
         
-        //Test database constructor 
+        
+        //Test database constructors
         [Test]
         public void DatabaseConstructorShoudAddObejtOfTypePersonAndTestFieldPersons()
         {
@@ -34,6 +30,18 @@ namespace DatabaseExtended.Tests
             long actualID = fieldValues[0].Id;
             Assert.AreEqual(expectedName, actualName);
             Assert.AreEqual(expectedID, actualID);
+        }
+        //After testing and confirming that Count works like expected
+        [Test]
+        public void DatabaseConstructorShoudInitializeADatabasewWithNoArgumentsForTheConstructor()
+        {
+            //Assign
+            Database db = new Database();
+            //Act && Assert
+            
+            int expectedCount = 0;
+            int actualCount = db.Count;
+            Assert.AreEqual(expectedCount, actualCount);
         }
 
         [TestCase(new int[] {1})]
@@ -161,13 +169,159 @@ namespace DatabaseExtended.Tests
             //Act && Assert 
             int expectedCount = values[0];
             int actualCount = db.Count;
+            Assert.AreEqual(expectedCount, actualCount);
+        }
+
+        [Test]
+        public void RemovingFromAnEmptyCollectionThrowsInvalidOperationException()
+        {
+            Database db = new Database();
+            Assert.That(() =>
+            db.Remove(), Throws.TypeOf<InvalidOperationException>());
+        }
+
+        [TestCase(new int[] { 1 })]
+        [TestCase(new int[] { 2 })]
+        [TestCase(new int[] { 10 })]
+        [TestCase(new int[] { 16 })]
+        public void RemovingMethodShouldRemovePersonsFromCollectionStartingFromTheLastItemAndSetItAsNull(int[] values)
+        {
+            Person[] persons = GeneratePersons(values[0]);
+            //Assign
+            Database db = new Database(persons);
+            //Act
+            db.Remove();
+            Type dbClass = db.GetType();
+            FieldInfo field = dbClass.GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+                .Where(x => x.Name == "persons").FirstOrDefault();
+            Person[] fieldValues = field.GetValue(db) as Person[];
+            //Assert 
+            int expectedCount = values[0] - 1;
+            int actualCount = db.Count;
+
+            Person expectedPerson = null;
+            Person actualPerson = fieldValues.Last();
 
             Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedPerson, actualPerson);
+        }
+
+        [Test]
+        public void FindByUsernameShouldReturnPersonWithExistringUsernameInTheDatabase()
+        {
+            //Assign
+            Person will = new Person(13, "Will");
+            Database db = new Database(will);
+            //Act
+            Person expectedPerson = will;
+            Person actualFoundPerson = db.FindByUsername("Will");
+            //Assert
+            Assert.AreEqual(expectedPerson, actualFoundPerson);
+        }
+
+        [Test]
+        public void FindByUsernameShouldReturnArgumentNullExeptionIfInputNameIsNull()
+        {
+            //Assign
+            Person will = new Person(13, "Will");
+            Database db = new Database(will);
+            //Act && Assert
+
+            Assert.That(() =>
+            {
+               db.FindByUsername(null);
+            }, Throws.TypeOf<ArgumentNullException>(),"Username parameter is null!");           
+    
+        }
+
+        [Test]
+        public void FindByUsernameShouldReturnArgumentNullExeptionIfInputNameIsEmpty()
+        {
+            //Assign
+            Person will = new Person(13, "Will");
+            Database db = new Database(will);
+            //Act && Assert
+
+            Assert.That(() =>
+            {
+                db.FindByUsername("");
+            }, Throws.TypeOf<ArgumentNullException>(), "Username parameter is null!");
 
         }
 
+        [Test]
+        public void FindByUsernameShouldThrowInvalidOperationExceptionWithCaseSensitiveIgnored()
+        {
+            //Assign
+            Person will = new Person(13, "Will");
+            Database db = new Database(will);
+            //Act && Assert
 
+            Assert.That(() =>
+            {
+                db.FindByUsername("will");
+            }, Throws.TypeOf<InvalidOperationException>(), "No user is present by this username!");
 
+        }
+
+        [Test]
+        public void FindByUsernameShouldThrowInvalidOperationExeptionIfInputNameIsDoesntExist()
+        {
+            
+             //Assign
+            Person will = new Person(13, "Will");
+            Database db = new Database(will);
+            //Act && Assert
+
+            Assert.That(() =>
+            {
+                db.FindByUsername("Ivan");
+            }, Throws.TypeOf<InvalidOperationException>().With.Message.EqualTo("No user is present by this username!"));
+
+        }
+
+        
+        [TestCase(new long[] { -1 })]
+        [TestCase(new long[] { -99 })]
+        public void FindByIdWithANegativeIdShoudThrowArgumentOutOfRangeException(long[] value)
+        {
+            //Assign
+            Person person = new Person(value[0], "Ivan");
+            Database db = new Database();
+
+            //Act && Assert
+            Assert.That(() =>
+            {
+                db.FindById(value[0]);
+            }, Throws.TypeOf<ArgumentOutOfRangeException>(), "Id should be a positive number!");
+
+        }
+
+        [TestCase(new long[] { 13 })]
+        public void FindByIdThatDoesntExistShouldThrowInvalidOperationException(long[] value)
+        {
+            //Assign
+            Person person = new Person(value[0], "Ivan");
+            Database db = new Database();
+
+            //Act && Assert
+            Assert.That(() =>
+            {
+                db.FindById(value[0]+1);
+            }, Throws.TypeOf<InvalidOperationException>(), "No user is present by this ID!");
+        }
+        [Test]
+        public void FindByIdThatExistShoudReturnTheSearchedPerson()
+        {
+            //Assign
+            Person person = new Person(15, "Pesho");
+            Database db = new Database(person);
+            //Act
+            Person expetedPerson = person;
+            Person actualPerson = db.FindById(15);
+
+            Assert.AreEqual(expetedPerson, actualPerson);
+        }
 
         public Person[] GeneratePersons(int count)
         {
