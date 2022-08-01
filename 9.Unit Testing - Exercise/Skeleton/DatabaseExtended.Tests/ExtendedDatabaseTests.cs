@@ -124,6 +124,7 @@ namespace DatabaseExtended.Tests
             
         }
         //After testing add method i am using it to add objects
+        [Test]
         public void AddMethodShouldNotAddAPersonWithAnExistingUsername()
         {
             //Assign
