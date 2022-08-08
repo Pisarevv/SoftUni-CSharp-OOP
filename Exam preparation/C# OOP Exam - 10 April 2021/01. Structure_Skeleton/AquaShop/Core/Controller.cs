@@ -10,19 +10,25 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using AquaShop.Models.Fish;
+using AquaShop.Utilities.Messages;
 
 namespace AquaShop.Core
 {
     public class Controller : IController
     {
-        private IRepository<IDecoration> decorations = new DecorationRepository();
-        private List<IAquarium> aquariums =new List<IAquarium>();
+        private readonly DecorationRepository decorations;
+        private readonly ICollection<IAquarium> aquariums;
+        public Controller()
+        {
+            this.decorations = new DecorationRepository();
+            this.aquariums = new HashSet<IAquarium>();
+        }
         public string AddAquarium(string aquariumType, string aquariumName)
         {
-            Aquarium aquarium = null;
+            IAquarium aquarium = null;
             if(!(aquariumType == "FreshwaterAquarium" || aquariumType == "SaltwaterAquarium"))
             {
-                throw new InvalidOperationException("Invalid aquarium type.");
+                throw new InvalidOperationException(ExceptionMessages.InvalidAquariumType);
             }
             if (aquariumType == "FreshwaterAquarium")
             {
@@ -32,7 +38,7 @@ namespace AquaShop.Core
             {
                 aquarium = new SaltwaterAquarium(aquariumName);
             }
-            aquariums.Add(aquarium);
+            this.aquariums.Add(aquarium);
             return $"Successfully added {aquarium.GetType().Name}.";
         }
 
@@ -41,7 +47,7 @@ namespace AquaShop.Core
             IDecoration decoration = null;
             if (!(decorationType == "Ornament" || decorationType == "Plant"))
             {
-                throw new InvalidOperationException("Invalid decoration type.");
+                throw new InvalidOperationException(ExceptionMessages.InvalidDecorationType);
             }
             if(decorationType == "Ornament")
             {
@@ -70,9 +76,13 @@ namespace AquaShop.Core
             if (doesExist)
             {
                 IAquarium currAquarium = aquariums.Where(x => x.Name == aquariumName).FirstOrDefault();
-                currAquarium.AddDecoration(decoration);
-                decorations.Remove(decoration);
-                return $"Successfully added {decorationType} to {aquariumName}.";
+                if (currAquarium != null)
+                {
+                    currAquarium.AddDecoration(decoration);
+                    decorations.Remove(decoration);
+                    return $"Successfully added {decorationType} to {aquariumName}.";
+                }      
+                
             }
             return $"There isn't a decoration of type {decorationType}.";
 
@@ -106,12 +116,11 @@ namespace AquaShop.Core
             IAquarium aquarim = aquariums.Where(x => x.Name == aquariumName).FirstOrDefault();
             if (aquarim != null)
             {
-                foreach (var fish in aquarim.Fish)
-                {
-                    fish.Eat();
-                }
+                aquarim.Feed();
+                return $"Fish fed: {aquarim.Fish.Count}";
             }
-            return $"Fish fed: {aquarim.Fish.Count}";
+
+            return null;
         }
 
         public string CalculateValue(string aquariumName)
@@ -120,10 +129,10 @@ namespace AquaShop.Core
             decimal valueOfItems = 0;
             if (aquarim != null)
             {
-                valueOfItems += aquarim.Fish.Sum(x => x.Price);
-                valueOfItems += aquarim.Decorations.Sum(x => x.Price);
+                valueOfItems = aquarim.Fish.Sum(x => x.Price) + aquarim.Decorations.Sum(x => x.Price);
+                
             }
-            return $"The value of Aquarium {aquariumName} is {valueOfItems}.";
+            return $"The value of Aquarium {aquariumName} is {valueOfItems:F2}.";
 
         }
         
