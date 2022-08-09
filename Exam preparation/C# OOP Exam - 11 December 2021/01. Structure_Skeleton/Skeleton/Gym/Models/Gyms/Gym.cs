@@ -74,11 +74,16 @@ namespace Gym.Models.Gyms
 
         public string GymInfo()
         {
+            List<String> athleteNames = new List<string>();
+            foreach(IAthlete athete in athletes)
+            {
+                athleteNames.Add(athete.FullName);
+            }
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"{this.Name} is a {this.GetType()}:")
-                .AppendLine($"Athletes: {(athletes.Count > 0 ? (string.Join(" ,", athletes)) : "No athletes")}")
-                .AppendLine($"Equipment total count: {this.Equipment}").
-                Append($"Equipment total weight: {EquipmentWeight} grams");
+            sb.AppendLine($"{this.Name} is a {this.GetType().Name}:")
+                .AppendLine($"Athletes: {(athletes.Count > 0 ? (string.Join(", ", athleteNames)) : "No athletes")}")
+                .AppendLine($"Equipment total count: {this.Equipment.Count}").
+                Append($"Equipment total weight: {EquipmentWeight:F2} grams");
             return sb.ToString().TrimEnd();
         }
 

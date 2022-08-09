@@ -1,7 +1,12 @@
-﻿namespace Gym.Core.Contracts
+﻿using Gym.Models.Equipment.Contracts;
+using Gym.Repositories;
+using System.Collections.Generic;
+
+namespace Gym.Core.Contracts
 {
     public interface IController
     {
+
         string AddGym(string gymType, string gymName);
 
         string AddEquipment(string equipmentType);

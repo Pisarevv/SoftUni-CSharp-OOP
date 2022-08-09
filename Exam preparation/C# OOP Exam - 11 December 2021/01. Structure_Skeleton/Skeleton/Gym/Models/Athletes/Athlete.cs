@@ -16,7 +16,7 @@ namespace Gym.Models
         {
             this.FullName = fullName;
             this.Motivation = motivation;
-            this.NumberOfMedals = numberofMedals;
+            this.NumberOfMedals = numberOfMedals;
             this.Stamina = stamina;
         }
         public string FullName
