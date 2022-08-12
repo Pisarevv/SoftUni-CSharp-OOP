@@ -17,9 +17,9 @@ namespace Formula1.Core
         private FormulaOneCarRepository formulaOneCarRepository;
         public Controller()
         {
-            pilotRepository = new PilotRepository();
-            raceRepository = new RaceRepository();
-            formulaOneCarRepository = new FormulaOneCarRepository();
+            this.pilotRepository = new PilotRepository();
+            this.raceRepository = new RaceRepository();
+            this.formulaOneCarRepository = new FormulaOneCarRepository();
         }
         public string CreatePilot(string fullName)
         {
@@ -34,6 +34,7 @@ namespace Formula1.Core
 
         public string CreateCar(string type, string model, int horsepower, double engineDisplacement)
         {
+
             if(formulaOneCarRepository.FindByName(model) != null)
             {
                 throw new InvalidOperationException(String.Format(ExceptionMessages.CarExistErrorMessage, model));
@@ -52,7 +53,7 @@ namespace Formula1.Core
                 newCar = new Ferrari(model, horsepower, engineDisplacement);
             }
             formulaOneCarRepository.Add(newCar);
-            return String.Format(OutputMessages.SuccessfullyCreateCar, type,model);
+            return String.Format(OutputMessages.SuccessfullyCreateCar, newCar.GetType().Name,newCar.Model);
         }
 
         public string CreateRace(string raceName, int numberOfLaps)
@@ -119,23 +120,24 @@ namespace Formula1.Core
 
             raceToStart.Pilots.OrderByDescending(x => x.Car.RaceScoreCalculator(raceToStart.NumberOfLaps));
 
-           List <IPilot> topThreePilots = raceToStart
+           List <IPilot> sortedPilots = raceToStart
                 .Pilots.OrderByDescending(x => x.Car.RaceScoreCalculator(raceToStart.NumberOfLaps))
-                .Take(3).ToList();
-            topThreePilots[0].WinRace();
+                .ToList();
+            sortedPilots[0].WinRace();
             raceToStart.TookPlace = true;
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Pilot {topThreePilots[0].FullName} wins the {raceName} race.")
-                .AppendLine($"Pilot {topThreePilots[1].FullName} is second in the {raceName} race.")
-                .Append($"Pilot {topThreePilots[2].FullName} is third in the {raceName} race");
-            return sb.ToString();
+            sb.AppendLine(String.Format(OutputMessages.PilotFirstPlace, sortedPilots[0].FullName,raceName))
+                .AppendLine(String.Format(OutputMessages.PilotSecondPlace, sortedPilots[1].FullName,raceName))
+                .AppendLine(String.Format(OutputMessages.PilotThirdPlace, sortedPilots[2].FullName, raceName));
+            return sb.ToString().TrimEnd();
 
         }
 
         public string RaceReport()
         {
             StringBuilder sb = new StringBuilder();
-            foreach (IRace race in raceRepository.Models.Where(x=> x.TookPlace == true))
+            List<IRace> list = this.raceRepository.Models.Where(x => x.TookPlace).ToList();
+            foreach (IRace race in list)
             {
                 sb.AppendLine(race.RaceInfo());
             }
@@ -144,7 +146,8 @@ namespace Formula1.Core
         public string PilotReport()
         {
             StringBuilder sb = new StringBuilder();
-            foreach(IPilot pilot in pilotRepository.Models.OrderByDescending(x => x.NumberOfWins))
+            List<IPilot> list = this.pilotRepository.Models.OrderByDescending(x => x.NumberOfWins).ToList();
+            foreach (IPilot pilot in list)
             {
                 sb.AppendLine(pilot.ToString());
             }
