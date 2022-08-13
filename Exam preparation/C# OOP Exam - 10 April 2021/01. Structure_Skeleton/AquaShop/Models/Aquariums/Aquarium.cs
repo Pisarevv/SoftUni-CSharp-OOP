@@ -87,7 +87,7 @@
             sb.AppendLine($"{this.Name} ({this.GetType().Name}):");
             sb.AppendLine($"Fish: {(fishesNames.Count > 0 ? string.Join(", ", fishesNames) : "none")}");
             sb.AppendLine($"Decorations: {this.Decorations.Count}");
-            sb.Append($"Comfort {this.Comfort}");
+            sb.Append($"Comfort: {this.Comfort}");
 
             return sb.ToString().TrimEnd();
         }
