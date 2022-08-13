@@ -55,7 +55,7 @@ namespace SpaceStation.Models.Astronauts
 
 
         public virtual void Breath()
-        {
+        {           
             this.Oxygen -= 10;
         }
     }

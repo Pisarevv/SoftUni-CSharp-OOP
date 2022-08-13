@@ -20,12 +20,13 @@ namespace SpaceStation.Models.Mission
             {
                 while(astronaut.CanBreath)
                 {
+                    if (planet.Items.Count == 0)
+                        return;
                     string item = planet.Items.First();
                     astronaut.Bag.Items.Add(item);
                     astronaut.Breath();
                     planet.Items.Remove(item);
-                    if (planet.Items.Count == 0)
-                        return;
+                    
                 }
             }
         }

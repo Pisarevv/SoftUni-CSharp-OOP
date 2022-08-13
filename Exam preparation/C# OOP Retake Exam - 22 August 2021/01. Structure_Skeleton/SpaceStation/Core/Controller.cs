@@ -19,11 +19,13 @@ namespace SpaceStation.Core
     {
         private IRepository<IAstronaut> astronautsRepository;
         private IRepository<IPlanet> planetsRepository;
+        private IMission mission;
         private int exploredPlanets;
         public Controller()
         {
             this.astronautsRepository = new AstronautRepository();
             this.planetsRepository = new PlanetRepository();
+            this.mission = new Mission();
             exploredPlanets = 0;
         }
         public string AddAstronaut(string type, string astronautName)
@@ -79,12 +81,12 @@ namespace SpaceStation.Core
             }
             IPlanet planetToExplore = planetsRepository.FindByName(planetName);
             if(planetToExplore!= null)
-            {
-                IMission mission = new Mission();
+            {               
                 mission.Explore(planetToExplore, suitableAstronauts);
                 exploredPlanets++;
+                return String.Format(OutputMessages.PlanetExplored, planetName, suitableAstronauts.Where(x => x.Oxygen == 0).ToList().Count);
             }
-            return String.Format(OutputMessages.PlanetExplored, planetName,suitableAstronauts.Where(x=> !x.CanBreath).ToList().Count);
+            return "Planet does not exist";
         }
 
         public string Report()
