@@ -6,7 +6,7 @@ namespace Heroes.Models.Weapons
 {
     public class Claymore : Weapon
     {
-        private int InitialClaymoreDamage = 25;
+        private int InitialClaymoreDamage = 20;
         public Claymore(string name, int durability) : base(name, durability)
         {
         }

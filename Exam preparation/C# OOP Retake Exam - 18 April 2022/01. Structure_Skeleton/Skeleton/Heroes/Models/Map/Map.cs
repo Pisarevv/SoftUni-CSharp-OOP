@@ -11,35 +11,46 @@ namespace Heroes.Models.Map
     {
         public string Fight(ICollection<IHero> players)
         {
-            ICollection<IHero>knights = players.Where(x => x.GetType().Name == "Knight").ToList();
+            ICollection<IHero> knights = players.Where(x => x.GetType().Name == "Knight").ToList();
             ICollection<IHero> barbarians = players.Where(x => x.GetType().Name == "Barbarian").ToList();
-            foreach(IHero knight in knights.Where(x => x.IsAlive))
+            while (true)
             {
-                foreach(IHero barbarian in barbarians.Where(x => x.IsAlive))
+                foreach (IHero barbarian in barbarians.Where(x => x.IsAlive))
                 {
-                    barbarian.TakeDamage(knight.Weapon.DoDamage());
+                    foreach (IHero knight in knights.Where(x => x.IsAlive))
+                    {
+                        barbarian.TakeDamage(knight.Weapon.DoDamage());
+                    }
                 }
-            }
-            foreach (IHero barbarian in barbarians.Where(x => x.IsAlive))
-            {
                 foreach (IHero knight in knights.Where(x => x.IsAlive))
                 {
-                    knight.TakeDamage(barbarian.Weapon.DoDamage());
+                    foreach (IHero barbarian in barbarians.Where(x => x.IsAlive))
+                    {
+                        knight.TakeDamage(barbarian.Weapon.DoDamage());
+                    }
+                }
+                var aliveBarbarians = barbarians.Where(x => x.IsAlive).Count();
+                var aliveKights = knights.Where(x => x.IsAlive).Count();
+                if(aliveBarbarians == 0)
+                {
+                    break;
+                }
+                if(aliveKights == 0)
+                {
+                    break;
                 }
             }
 
-            if(barbarians.Where(x=> x.IsAlive).Count() == 0)
+            if (knights.Any(x => x.IsAlive))
             {
-                return $"The knights took {knights.Where(x=> !x.IsAlive).Count()} casualties but won the battle.";
+                return $"The knights took {knights.Where(x => !x.IsAlive).ToList().Count} casualties but won the battle.";
             }
-            else if(knights.Where(x=> x.IsAlive).Count() == 0)
+            else if (barbarians.Any(x => x.IsAlive))
             {
-                return $"The barbarians  took {barbarians.Where(x => !x.IsAlive).Count()} casualties but won the battle.";
+                return $"The barbarians took {barbarians.Where(x => !x.IsAlive).ToList().Count} casualties but won the battle.";
             }
-            else
-            {
-                return null;
-            }
+            return null;
+
         }
     }
 }
