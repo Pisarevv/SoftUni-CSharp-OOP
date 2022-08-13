@@ -27,7 +27,7 @@ namespace CarRacing.Models.Racers
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentNullException(ExceptionMessages.InvalidRacerName);
+                    throw new ArgumentException(ExceptionMessages.InvalidRacerName);
                 }
                 this.username = value;
             }
@@ -40,7 +40,7 @@ namespace CarRacing.Models.Racers
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentNullException(ExceptionMessages.InvalidRacerBehavior);
+                    throw new ArgumentException(ExceptionMessages.InvalidRacerBehavior);
                 }
                 this.racingBehavior = value;
             }
@@ -62,7 +62,7 @@ namespace CarRacing.Models.Racers
         public ICar Car
         {
             get => this.car;
-            private set
+            set
             {
                 if (value == null)
                 {

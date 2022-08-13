@@ -35,12 +35,10 @@ namespace CarRacing.Models.Maps
             }          
              if(racerOne.IsAvailable() && !racerTwo.IsAvailable())
             {
-                //racerOne.Race();
                 return String.Format(OutputMessages.OneRacerIsNotAvailable, racerOne.Username, racerTwo.Username);
             }
              if (!racerOne.IsAvailable() && racerTwo.IsAvailable())
             {
-                //racerTwo.Race();
                 return String.Format(OutputMessages.OneRacerIsNotAvailable, racerTwo.Username, racerOne.Username);
             }
             else 
