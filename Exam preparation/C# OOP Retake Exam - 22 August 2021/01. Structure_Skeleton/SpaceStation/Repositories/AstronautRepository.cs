@@ -9,10 +9,10 @@ namespace SpaceStation.Repositories
 {
     public class AstronautRepository : IRepository<IAstronaut>
     {
-        private ICollection<IAstronaut> models;
+        private readonly ICollection<IAstronaut> models;
         public AstronautRepository()
         {
-            this.models = new List<IAstronaut>();
+            this.models = new HashSet<IAstronaut>();
         }
         public IReadOnlyCollection<IAstronaut> Models => (IReadOnlyCollection<IAstronaut>)this.models;
 

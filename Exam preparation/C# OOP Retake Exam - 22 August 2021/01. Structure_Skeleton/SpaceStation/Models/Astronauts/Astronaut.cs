@@ -50,12 +50,17 @@ namespace SpaceStation.Models.Astronauts
         public IBag Bag
         {
             get => this.bag;
+            set
+            {
+                this.bag = value;
+            }
            
         }
 
 
         public virtual void Breath()
         {           
+
             this.Oxygen -= 10;
         }
     }

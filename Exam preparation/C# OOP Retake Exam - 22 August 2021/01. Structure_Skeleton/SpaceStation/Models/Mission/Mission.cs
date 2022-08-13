@@ -23,8 +23,8 @@ namespace SpaceStation.Models.Mission
                     if (planet.Items.Count == 0)
                         return;
                     string item = planet.Items.First();
-                    astronaut.Bag.Items.Add(item);
                     astronaut.Breath();
+                    astronaut.Bag.Items.Add(item);
                     planet.Items.Remove(item);
                     
                 }

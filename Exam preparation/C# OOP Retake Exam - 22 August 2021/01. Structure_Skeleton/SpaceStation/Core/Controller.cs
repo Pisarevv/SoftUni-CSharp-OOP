@@ -74,8 +74,8 @@ namespace SpaceStation.Core
         }
         public string ExplorePlanet(string planetName)
         {
-            List<IAstronaut> suitableAstronauts = astronautsRepository.Models.Where(x => x.Oxygen > 60).ToList();
-            if(suitableAstronauts.Count == 0)
+            List<IAstronaut> suitableAstronauts = astronautsRepository.Models.Where(x => x.Oxygen > 60.00).ToList();
+            if(suitableAstronauts.Count() == 0)
             {
                 throw new InvalidOperationException(ExceptionMessages.InvalidAstronautCount);
             }
@@ -86,18 +86,19 @@ namespace SpaceStation.Core
                 exploredPlanets++;
                 return String.Format(OutputMessages.PlanetExplored, planetName, suitableAstronauts.Where(x => x.Oxygen == 0).ToList().Count);
             }
-            return "Planet does not exist";
+            return null;
         }
 
         public string Report()
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"{exploredPlanets} planets were explored!");
+            sb.AppendLine("Astronauts info:");
             foreach (IAstronaut astronaut in astronautsRepository.Models)
             {
               
-                    sb.AppendLine("Astronauts info:")
-                    .AppendLine($"Name: {astronaut.Name}")
+                    
+                    sb.AppendLine($"Name: {astronaut.Name}")
                     .AppendLine($"Oxygen: {astronaut.Oxygen}")
                     .AppendLine($"Bag items: {(astronaut.Bag.Items.Count > 0 ? (String.Join(", ", astronaut.Bag.Items)) : "none")}");
 
