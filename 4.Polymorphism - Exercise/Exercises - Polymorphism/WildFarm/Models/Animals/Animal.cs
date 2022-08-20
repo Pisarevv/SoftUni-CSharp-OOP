@@ -25,7 +25,7 @@ namespace WildFarm.Models.Animals
             {
                 return name;
             }
-            private set
+            protected set
             {
                 name = value;
             }

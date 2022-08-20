@@ -4,6 +4,8 @@ using Raiding.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Reflection;
+using System.Linq;
 
 namespace Raiding.Factories
 {
@@ -12,8 +14,14 @@ namespace Raiding.Factories
         public BaseHero CreateHero(string name, string type)
         {
             BaseHero hero = null;
+            Assembly assembly = Assembly.GetCallingAssembly();         
+            Type typeClass = assembly.GetTypes().Where(x => x.Name == type).FirstOrDefault();
+            typeClass.GetProperty("name").SetValue(typeClass, name);
+            object instance = Activator.CreateInstance(typeClass);
 
-            if (type == "Paladin")
+            
+
+            /*if (type == "Paladin")
             {
                 hero = new Paladin(name);
             }
@@ -32,7 +40,7 @@ namespace Raiding.Factories
             else
             {
                 throw new ArgumentException("Invalid hero!");
-            }
+            }*/
 
             return hero;
         }
